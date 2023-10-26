@@ -2,7 +2,7 @@
 name = "backend"
 version = "0.1.0"
 description = ""
-authors = ["Junnosuke Muto <128980368+JunnosukeMuto@users.noreply.github.com>"]
+authors = ["JunnosukeMuto <128980368+JunnosukeMuto@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
