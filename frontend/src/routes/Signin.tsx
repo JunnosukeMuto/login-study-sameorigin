@@ -1,10 +1,30 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
 import { FormEventHandler } from "react";
 import { Link } from "react-router-dom";
 
 export default function Signin() {
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
+    const data = new FormData(event.currentTarget)
+    const email = data.get('email')
+    const password = data.get('password')
+    await axios
+      .post('http://localhost:5000/login', {
+        email: email,
+        password: password,
+      },{
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((res) => {
+        if (res.data.login) {
+          alert('hello,'+res.data.username)
+        } else {
+          alert('login failed...')
+        }
+      })
   };
 
   return (
@@ -21,7 +41,7 @@ export default function Signin() {
           </label>
           <input
             type="email"
-            id="email"
+            name="email"
             className="input input-bordered mb-2"
           />
           <label htmlFor="password" className="label-text mb-1">
@@ -29,7 +49,7 @@ export default function Signin() {
           </label>
           <input
             type="password"
-            id="password"
+            name="password"
             className="input input-bordered mb-6"
           />
           <input type="submit" className="btn normal-case" value="Sign in" />
