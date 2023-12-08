@@ -33,12 +33,12 @@ def load_user(user_id):
     return User(user_id)
 
 
-@app.route('/')
+@app.route('/api/hello')
 def helloworld():
     return {'hello': 'world'}
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     req = request.get_json()
     for user in users:

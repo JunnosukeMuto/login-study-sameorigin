@@ -6,7 +6,7 @@ export default function Index() {
   const [response, setResponse] = useState<responseType>(null);
   async function getHello() {
     await axios
-      .get("http://localhost:5000/")
+      .get("http://localhost:5000/api/hello")
       .then((res) => {
         setResponse(res.data);
         console.log(res);
@@ -22,7 +22,7 @@ export default function Index() {
   return (
     <>
       <div className="flex gap-6 p-6">
-        {response ? response.hello : "no response"}
+        {response ? response.hello+"!!!" : "no response!!!"}
       </div>
     </>
   );

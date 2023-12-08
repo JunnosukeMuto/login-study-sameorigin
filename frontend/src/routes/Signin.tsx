@@ -10,7 +10,7 @@ export default function Signin() {
     const email = data.get('email')
     const password = data.get('password')
     await axios
-      .post('http://localhost:5000/login', {
+      .post('http://localhost:5000/api/login', {
         email: email,
         password: password,
       },{
