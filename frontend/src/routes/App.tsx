@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Index() {
-  type responseType = null | { hello: string };
-  const [response, setResponse] = useState<responseType>(null);
+  const [response, setResponse] = useState<null | { username: string }>(null);
   async function getHello() {
     await axios
-      .get("http://localhost:5000/api/hello")
+      .get("http://localhost/api/data")
       .then((res) => {
         setResponse(res.data);
         console.log(res);
@@ -22,7 +21,9 @@ export default function Index() {
   return (
     <>
       <div className="flex gap-6 p-6">
-        {response ? response.hello+"!!!" : "no response!!!"}
+        {response
+          ? "Hello, " + response.username + "!"
+          : "You are an anonymous user."}
       </div>
     </>
   );

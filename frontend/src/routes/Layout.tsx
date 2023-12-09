@@ -1,6 +1,36 @@
-import { Outlet, Link } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 
 export default function Root() {
+  const navigate = useNavigate();
+  const [response, setResponse] = useState<null | { username: string }>(null);
+  async function getHello() {
+    await axios
+      .get("http://localhost/api/data")
+      .then((res) => {
+        setResponse(res.data);
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  async function logout() {
+    await axios
+      .get("http://localhost/api/logout")
+      .then((res) => {
+        setResponse(res.data);
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    navigate("login");
+  }
+  useEffect(() => {
+    getHello();
+  }, []);
   return (
     <>
       <div className="h-screen">
@@ -11,9 +41,21 @@ export default function Root() {
             </Link>
           </div>
           <div>
-            <Link to={`signin`} className="btn bg-base-200 normal-case">
-              Sign in
-            </Link>
+            {response ? (
+              <>
+                <div className="mr-6">{response.username}</div>
+                <button
+                  onClick={logout}
+                  className="btn bg-base-200 normal-case"
+                >
+                  Log out
+                </button>
+              </>
+            ) : (
+              <Link to={`login`} className="btn bg-base-200 normal-case">
+                Log in
+              </Link>
+            )}
           </div>
         </div>
         <Outlet />

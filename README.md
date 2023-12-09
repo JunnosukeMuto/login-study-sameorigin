@@ -6,21 +6,19 @@ json を返すバックエンドと、SPA のフロントエンド、データ�
 
 ## 起動
 
-`docker compose version`が 2.22 以降でないと動作しません。
-
 ```
-docker compose watch
+docker-compose up --build
 ```
 
-`http://localhost`で、nginx からアクセスができます。
+`http://localhost`で、nginx からアクセスができます。フロントエンドのホットリロードは効きません。
 
-フロントエンドを開発するときは、`http://localhost:5173`で作業しないと、ホットリロードが効きません。
+`http://localhost:5173`で作業すると、フロントエンドのホットリロードが効きます。でも、バックエンドとの通信が CORS ポリシーで失敗します。
 
 バックエンドは`http://localhost:5000`に建っています。
 
 ## 終了
 
-`docker compose up`と違って、`Ctrl+C`してもコンテナはストップしません。down を忘れないでください。
+`Ctrl+C`ですべてのコンテナをストップできます。すべてのコンテナを削除するには:
 
 ```
 docker compose down

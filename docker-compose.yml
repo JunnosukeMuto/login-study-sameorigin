@@ -5,11 +5,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
-    develop:
-      watch:
-        - action: sync
-          path: ./backend/backend
-          target: /app/backend
+    volumes:
+      - ./backend/backend:/app/backend
 
   frontend:
     build:
@@ -17,11 +14,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5173:5173"
-    develop:
-      watch:
-        - action: sync
-          path: ./frontend/src
-          target: /usr/src/app/src
+    volumes:
+      - ./frontend/src:/usr/src/app/src
 
   proxy:
     image: nginx:1.25.3-alpine

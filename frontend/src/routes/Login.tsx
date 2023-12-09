@@ -1,30 +1,35 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { FormEventHandler } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Signin() {
+export default function Login() {
+  const navigate = useNavigate();
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget)
-    const email = data.get('email')
-    const password = data.get('password')
+    const data = new FormData(event.currentTarget);
+    const email = data.get("email");
+    const password = data.get("password");
     await axios
-      .post('http://localhost:5000/api/login', {
-        email: email,
-        password: password,
-      },{
-        headers: {
-          'Content-Type': 'application/json'
+      .post(
+        "http://localhost/api/login",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      })
+      )
       .then((res) => {
         if (res.data.login) {
-          alert('hello,'+res.data.username)
+          navigate("/");
         } else {
-          alert('login failed...')
+          alert("login failed...");
         }
-      })
+      });
   };
 
   return (
@@ -34,7 +39,7 @@ export default function Signin() {
           <ArrowLeftIcon className="h-4 w-4" />
           Back to home
         </Link>
-        <h1 className="text-3xl font-bold mb-4">Sign in</h1>
+        <h1 className="text-3xl font-bold mb-4">Log in</h1>
         <form onSubmit={handleSubmit} className="flex flex-col">
           <label htmlFor="email" className="label-text mb-1">
             Email address
@@ -52,7 +57,7 @@ export default function Signin() {
             name="password"
             className="input input-bordered mb-6"
           />
-          <input type="submit" className="btn normal-case" value="Sign in" />
+          <input type="submit" className="btn normal-case" value="Log in" />
         </form>
       </div>
     </div>
